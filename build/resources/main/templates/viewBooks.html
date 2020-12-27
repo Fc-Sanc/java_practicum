@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <title>book list | Practicum</title>
+
+        <link href="../static/asset/lib/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
+        <link href="../static/asset/style/page.css" rel="stylesheet">
+        <link href="../static/asset/style/viewBooks.css" rel="stylesheet">
+        <script src="../static/asset/lib/jQuery/jquery-3.5.1.js"></script>
+        <script src="../static/asset/lib/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+        <script src="../static/asset/lib/Vue/vue.js"></script>
+        <script src="../static/asset/js/utils.js"></script>
+        <script src="../static/asset/js/viewBooks.js"></script>
+    </head>
+    <body>
+        <div id="navigator"></div>
+        <div id="books" class="panel" style="padding: 30px">
+            <div class="row">
+                <div class="col-lg-2 panel panel-info" v-for="(book) in books.slice(0, 6)">
+                    <a :href=`details?isbn=${book['isbn']}`>
+                        <img :src=`${book['cover']}` width="120px" height="160px" :alt=`${book['name']}`>
+                        <b><p>{{book['name']}}</p></b>
+                        <p>借阅次数: {{book['sales']}}次</p>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 panel panel-info" v-for="(book) in books.slice(6, 12)">
+                    <a :href=`details?isbn=${book['isbn']}`>
+                        <img :src=`${book['cover']}` width="120px" height="160px" :alt=`${book['name']}`>
+                        <b><p>{{book['name']}}</p></b>
+                        <p>借阅次数: {{book['sales']}}次</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <nav class="text-center">
+            <ul id="pagination" class="pagination">
+                <li>
+                    <a
+                            :href=`/viewBooks?page=${Number(page)===1?1:Number(page)-1}&size=${size}&typeId=${typeId===null?'':typeId}&keyword=${keyword}`>
+                        &laquo;
+                    </a>
+                </li>
+                <li v-for="index in number" :class="Number(page)===index?'active':''">
+                    <a :href=`/viewBooks?page=${index}&size=${size}&typeId=${typeId}&keyword=${keyword}`>
+                        {{index}}
+                    </a>
+                </li>
+                <li>
+                    <a :href=`/viewBooks?page=${Number(page)===number?number:Number(page)+1}&size=${size}&typeId=${typeId===null?'':typeId}&keyword=${keyword}`>
+                        &raquo;
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+    </body>
+</html>

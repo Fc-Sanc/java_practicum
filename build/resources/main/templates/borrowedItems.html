@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Borrowed Items | Practicum</title>
+
+        <link href="../static/asset/lib/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
+        <link href="../static/asset/style/page.css" rel="stylesheet">
+        <link href="../static/asset/style/homePage.css" rel="stylesheet">
+        <script src="../static/asset/lib/jQuery/jquery-3.5.1.js"></script>
+        <script src="../static/asset/lib/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+        <script src="../static/asset/lib/Vue/vue.js"></script>
+        <script src="../static/asset/js/utils.js"></script>
+        <script src="../static/asset/js/borrowedItems.js"></script>
+    </head>
+    <body>
+        <div id="navigator"></div>
+        <h3>我的借阅</h3>
+        <hr>
+        <div class="container" id="borrowed_items" style="width: 80vw">
+            <div class="panel panel-info" v-for="(book, index) in books" style="margin: 20px">
+                <img :src=`${book['cover']}` width="120px" height="160px" :alt=`${book['name']}`>
+                <b><span style="display: inline-block; padding: 30px; width: 200px">{{book['name']}}</span></b>
+                <span style="display: inline-block; padding: 30px">归还日期: {{orders[index]['date']}}</span>
+                <div class="btn-group">
+                    <button :onclick=`returnBook('${book['isbn']}','${book['name']}')` class="btn btn-success">
+                        归还
+                    </button>
+                    <button :onclick=`renewBook('${book['isbn']}','${book['name']}')` class="btn btn-warning">
+                        续借
+                    </button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <nav style="text-align: center">
+            <ul id="pagination" class="pagination">
+                <li>
+                    <a
+                            :href=`/borrowedItems?page=${Number(page)===1?1:Number(page)-1}&size=${size}`>
+                        &laquo;
+                    </a>
+                </li>
+                <li v-for="index in number" :class="Number(page)===index?'active':''">
+                    <a :href=`/borrowedItems?page=${index}&size=${size}`>
+                        {{index}}
+                    </a>
+                </li>
+                <li>
+                    <a :href=`/borrowedItems?page=${Number(page)===number?number:Number(page)+1}&size=${size}`>
+                        &raquo;
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </body>
+</html>

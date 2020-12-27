@@ -1,0 +1,61 @@
+<!--
+    导航栏，显示在用户页面的最上方
+-->
+<script src="../../static/asset/js/navigator.js"></script>
+<nav class="navbar navbar-default navbar-static-top" style="background: rgba(255,255,255,0.7);">
+    <div class="container-fluid">
+        <div class="navbar-header nav-title">
+            <a class="navbar-brand nav-title">
+                One Library
+            </a>
+        </div>
+
+        <div>
+            <ul class="nav navbar-nav">
+                <li><a href="/index">首页</a></li>
+                <li><a href="/viewBooks?page=1&size=12&typeId=&keyword=">书单</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <ul class="nav navbar-nav">
+                <li>
+                    <div class="form-inline" style="margin: 5px auto">
+                        <form action="/viewBooks" method="get">
+                            <input type="hidden" name="page" value="1">
+                            <input type="hidden" name="size" value="12">
+                            <input id="keyword" type="text" name="keyword" style="width: 300px"
+                                   placeholder="任意关键字，支持模糊搜索" class="form-control">
+                            <input type="submit" id="search" class="btn btn-info" value="搜索">
+                        </form>
+                    </div>
+                    <script>
+                    </script>
+                </li>
+            </ul>
+        </div>
+
+        <!--
+           根据session中的用户信息，填写用户的名称和定义提供的页面
+        -->
+
+        <div class="pull-right">
+            <ul class="nav navbar-nav" id="user_info">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        {{user===null?'guest':user['username']}}
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-right dropdown-menu pull-right" v-if="user!==null">
+                        <li><a href="/profile">个人信息</a></li>
+                        <li><a href="/borrowedItems?page=1&size=10">借阅信息</a></li>
+                        <li><a href="/doLogout">注销</a></li>
+                    </ul>
+                    <ul class="dropdown-left dropdown-menu pull-right" v-else>
+                        <li><a href="/login">登录/注册</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

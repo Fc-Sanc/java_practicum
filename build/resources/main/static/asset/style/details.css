@@ -1,0 +1,10 @@
+* {
+    font-family : sans-serif;
+}
+
+#book_main pre {
+    white-space : pre-wrap;
+    word-wrap   : break-word;
+    font-size: 18px;
+    margin: 20px auto;
+}

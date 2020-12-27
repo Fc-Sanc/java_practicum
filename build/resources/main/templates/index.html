@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <title>Home | Practicum</title>
+
+        <link href="../static/asset/lib/bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
+        <link href="../static/asset/style/homePage.css" rel="stylesheet">
+        <script src="../static/asset/lib/jQuery/jquery-3.5.1.js"></script>
+        <script src="../static/asset/lib/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+        <script src="../static/asset/lib/Vue/vue.js"></script>
+        <script src="../static/asset/js/utils.js"></script>
+        <script src="../static/asset/js/homePage.js"></script>
+    </head>
+    <body>
+        <div id="navigator"></div>
+        <h1 class="page-header text-primary" id="title">{{title}}</h1>
+        <div class="row" style="height: 60vh">
+            <div class="col-lg-2">
+                <div id="type_list" class="panel panel-info">
+                    <ul class="list-group">
+                        <li v-for="type in types" class="list-group-item panel-info">
+                            <a :href=`viewBooks?page=1&size=12&typeId=${type.id}`>
+                                {{type.name}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9" id="book_list">
+                <h3>热门借阅</h3>
+                <div class="panel">
+                    <div class="row">
+                        <div class="col-lg-2 panel panel-info" v-for="(book) in books.slice(0, 6)">
+                            <a :href=`details?isbn=${book['isbn']}`>
+                                <img :src=`${book['cover']}` width="120px" height="160px" :alt=`${book['name']}`>
+                                <big><b><p>{{book['name']}}</p></b></big>
+                                <p>借阅次数: {{book['sales']}}次</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 panel panel-info" v-for="(book) in books.slice(6, 12)">
+                            <a :href=`details?isbn=${book['isbn']}`>
+                                <img :src=`${book['cover']}` width="120px" height="160px">
+                                <big><b><p>{{book['name']}}</p></b></big>
+                                <p>借阅次数: {{book['sales']}}次</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
